@@ -4,7 +4,7 @@ services:
     container_name: db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environments:
+    environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=jornada
@@ -35,7 +35,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app
+    container_name: app 
     volumes:
       - .:/home/devuser/app
     depends_on:
