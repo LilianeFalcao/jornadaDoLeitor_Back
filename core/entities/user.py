@@ -1,11 +1,11 @@
 import dataclasses
 
-from ..value_objects import Email, Name, Password
+from ..value_objects import Email, Nickname, Password
 
 
 @dataclasses.dataclass
 class User:
     id: str
-    name: Name
+    nickname: Nickname
     email: Email
     password: Password

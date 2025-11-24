@@ -1,3 +1,0 @@
-from .i_loan_repository import ILoanRepository
-from .i_user_repository import IUserRepository
-from .i_vinyl_record_repository import IVinylRecordRepository
