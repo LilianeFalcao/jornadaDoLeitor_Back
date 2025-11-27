@@ -11,4 +11,6 @@ class UserResponse(BaseModel):
     id: str
     nickname: str
     email: EmailStr
-    password: str
+
+    class Config:
+        from_attibutes = True

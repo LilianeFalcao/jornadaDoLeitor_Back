@@ -1,3 +1,3 @@
-from .email import Email
-from .nick import Nickname
 from .password import Password
+from .nick import Nick
+from .email import Email
