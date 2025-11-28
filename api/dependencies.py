@@ -8,7 +8,7 @@ from core.infra.database import get_db
 from core.infra.repositories.sqlalchemy import (
     UserRepository,
 )
-from core.domain.entities import User
+from core.domain.entity import User
 from core.security import ALGORITHM, SECRET_KEY
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/token", scheme_name="JWT")

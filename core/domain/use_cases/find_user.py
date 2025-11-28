@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ..entities import User
+from ..entity import User
 from ..repositories import IUserRepository
 
 

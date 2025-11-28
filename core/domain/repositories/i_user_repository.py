@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from ..entities.user import User
+from ..entity.user import User
 
 
 class IUserRepository(ABC):
