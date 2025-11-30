@@ -11,9 +11,7 @@ from core.domain.use_cases import (
     RegisterUser,
     UpdateUser,
 )
-from core.infra.mocks import (
-    MockUserRepository,
-)
+from core.infra.mock import MockUserRepository, mock_user_repository
 
 
 class UseCaseFactory:

@@ -1,6 +1,6 @@
 import uuid
 
-from ..entities import User
+from ..entity import User
 from ..repositories import IUserRepository
 from ..value_objects import Email, Name, Password
 

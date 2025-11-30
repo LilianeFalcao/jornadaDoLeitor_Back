@@ -1,1 +1,3 @@
 from .i_user_repository import IUserRepository
+from .i_manga_repository import IMangaRepository
+from .i_reading_repository import IReadingRepository
