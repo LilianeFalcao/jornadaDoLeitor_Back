@@ -1,6 +1,8 @@
 from typing import Optional
 
 from core.domain.repositories import (
+    IMangaRepository,
+    IReadingRepository,
     IUserRepository,
 )
 from core.domain.use_cases import (
@@ -11,16 +13,35 @@ from core.domain.use_cases import (
     RegisterUser,
     UpdateUser,
 )
-from core.infra.mock import MockUserRepository, mock_user_repository
+from core.infra.mock import (
+    MockMangaRepository,
+    MockReadingRepository,
+    MockUserRepository,
+)
 
 
 class UseCaseFactory:
     def __init__(
         self,
+        manga_repository: Optional[IMangaRepository] = None,
+        reading_repository: Optional[IReadingRepository] = None,
         user_repository: Optional[IUserRepository] = None,
     ):
+        self.manga_repository = manga_repository or MockMangaRepository()
+        self.reading_repository = reading_repository or MockReadingRepository()
         self.user_repository = user_repository or MockUserRepository()
 
+    # ----------------------------------------------------------------------
+    # Implementação Manga
+    # ----------------------------------------------------------------------
+
+    # ----------------------------------------------------------------------
+    # Implementação Reading
+    # ----------------------------------------------------------------------
+
+    # ----------------------------------------------------------------------
+    # Implementação User
+    # ----------------------------------------------------------------------
     def create_register_user(self) -> RegisterUser:
         return RegisterUser(user_repository=self.user_repository)
 
