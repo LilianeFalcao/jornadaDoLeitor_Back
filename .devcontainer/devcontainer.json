@@ -1,6 +1,7 @@
 {
-  "name": "Coreback20252 Dev Container",
-  "dockerFile": "../Dockerfile",
+  "name": "JornadaDoLeitor Back Dev Container",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "app",
   "workspaceFolder": "/home/devuser/app",
   "remoteUser": "devuser",
   "settings": {
@@ -15,7 +16,7 @@
   "mounts": [
     "source=${localWorkspaceFolder},target=/home/devuser/app,type=bind"
   ],
-  "postCreateCommand": "pip install -r requirements.txt && pip install -e .",
+  "postCreateCommand": "pip install -e .[test,lint]",
   "extensions": [
     "ms-python.python",
     "ms-python.vscode-pylance",

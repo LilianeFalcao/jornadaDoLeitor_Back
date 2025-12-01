@@ -1,6 +1,31 @@
 [project]
-name = "vinyl-collection-api"
+name = "JornadaDoLeitor-api"
 version = "0.1.0"
+dependencies = [
+    "python-dotenv>=1.1.0",
+    "fastapi>=0.111.0",
+    "uvicorn>=0.20.0",
+    "sqlalchemy>=2.0.0",
+    "alembic>=1.13.1",
+    "asyncpg>=0.29.0",
+    "psycopg2-binary>=2.9.9",
+    "email-validator>=2.1.1",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib>=1.7.4",
+    "bcrypt==3.2.2",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.4.0",
+    "pytest-cov>=6.2.1",
+    "pytest-asyncio>=0.23.0",
+]
+lint = [
+    "ruff>=0.5.0",
+]
+
 
 [build-system]
 requires = ["setuptools>=61.0"]
@@ -32,3 +57,5 @@ select = ["E", "W", "F", "I"]
 [tool.ruff.lint.per-file-ignores]
 # Isso ainda resolve todos os erros F401 nos inits
 "__init__.py" = ["F401"]
+
+#dependencias
