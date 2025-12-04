@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, ForeignKey, Numeric
+from sqlalchemy import Column, String, DateTime, Float, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 from .base import Base
 
@@ -10,8 +10,8 @@ class Reading(Base):
     id_user = Column(String, ForeignKey("users.id"))
     id_manga = Column(String, ForeignKey("mangas.id"))
     start_date = Column(DateTime)
-    current_chapter = Column(Numeric)
-    progress = Column(Numeric)
+    current_chapter = Column(Integer)
+    progress = Column(Float)
     notes = Column(String)
 
     user = relationship("User")

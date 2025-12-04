@@ -8,7 +8,6 @@ from core.domain.repositories import IReadingRepository
 class ReadingStatus(Enum):
     READING = "reading"
     COMPLETED = "completed"
-    ALL = "all"
 
 
 class MockReadingRepository(IReadingRepository):

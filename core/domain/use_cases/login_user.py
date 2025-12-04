@@ -1,7 +1,7 @@
+from core.security import verify_password
+
 from ..entity import User
 from ..repositories import IUserRepository
-
-from core.security import verify_password
 
 
 class LoginUser:

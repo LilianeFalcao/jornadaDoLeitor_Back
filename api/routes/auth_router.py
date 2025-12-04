@@ -1,19 +1,21 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from api.schemas.user_schemas import UserCreate, UserResponse
-from core.factories.use_case_factory import UseCaseFactory
-from api.dependencies import get_use_case_factory
-from fastapi.security import OAuth2PasswordRequestForm
-
-from core.security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 from datetime import timedelta
 
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 
-@router.post("/token")
-async def login_for_acess_token(
-    form_data: OAuth2PasswordRequestForm,
+from api.dependencies import get_use_case_factory
+from core.factories.use_case_factory import UseCaseFactory
+from core.security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
+
+auth_router = APIRouter()
+
+
+@auth_router.post("/token")
+async def login_for_access_token(
+    form_data: OAuth2PasswordRequestForm = Depends(),
     factory: UseCaseFactory = Depends(get_use_case_factory),
 ):
-    login_user_use_case: factory.create_login_user()
+    login_user_use_case = factory.create_login_user()
     user = await login_user_use_case.execute(
         email=form_data.username, password=form_data.password
     )
@@ -23,3 +25,8 @@ async def login_for_acess_token(
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.email.value}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}

@@ -9,7 +9,14 @@ class Readings:
 
 
 class ReadingStatus:
-    pass
+    """
+    Enum que representa o status de leitura de um mangá.
+    Corresponde a 'export enum Reading_Status'.
+    """
+
+    READING = "reading"
+    COMPLETED = "completed"
+    ALL = "all"
 
 
 class IReadingRepository(ABC):

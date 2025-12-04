@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Numeric
+from sqlalchemy import Column, String, Integer
 from .base import Base
 
 
@@ -10,4 +10,4 @@ class Manga(Base):
     title = Column(String)
     author_name = Column(String)
     gender = Column(String)
-    total_chapters = Column(Numeric)
+    total_chapters = Column(Integer)

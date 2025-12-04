@@ -1,45 +1,65 @@
-from typing import List, Optional
-
-from core.domain.entity import User
-from core.domain.repositories import IUserRepository
+from typing import Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from core.infra.orm.user import User as UserModel
-
 from sqlalchemy.future import select
 
+from core.domain.entity import User as UserEntity
+from core.domain.repositories import IUserRepository
 from core.domain.value_objects import Email, Nickname, Password
-from core.security import get_password_hash
+from core.infra.orm.user import User as UserModel
 
 
-class MockUserRepository(IUserRepository):
+class UserRepository(IUserRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def save(self, user: User) -> None:
-        hashed_pass = get_password_hash(user.password.value)
+    async def save(self, user: UserEntity) -> None:
         user_model = UserModel(
             id=user.id,
             nickname=user.nickname.value,
             email=user.email.value,
-            password=hashed_pass,
+            password=user.password.value,
         )
         self.session.add(user_model)
         await self.session.commit()
-        # self.users.append(user)
 
-    async def find_by_email(self, email: str) -> Optional[User]:
-        return next((user for user in self.users if user.email.value == email), None)
+    async def find_by_email(self, email: str) -> Optional[UserEntity]:
+        result = await self.session.execute(
+            select(UserModel).where(UserModel.email == email)
+        )
+        user_model = result.scalar_one_or_none()
+        if user_model:
+            return UserEntity(
+                id=user_model.id,
+                nickname=Nickname(user_model.nickname),
+                email=Email(user_model.email),
+                password=Password(user_model.password),
+            )
+        return None
 
-        # return next((user for user in self.users if user.email.value == email), None)
+    async def find_by_id(self, id: str) -> Optional[UserEntity]:
+        result = await self.session.execute(select(UserModel).where(UserModel.id == id))
+        user_model = result.scalar_one_or_none()
+        if user_model:
+            return UserEntity(
+                id=user_model.id,
+                nickname=Nickname(user_model.nickname),
+                email=Email(user_model.email),
+                password=Password(user_model.password),
+            )
+        return None
 
-    async def find_by_id(self, id: str) -> Optional[User]:
-        return next((user for user in self.users if user.id == id), None)
-
-    async def update(self, user: User) -> None:
-        index = next((i for i, u in enumerate(self.users) if u.id == user.id), None)
-        if index is not None:
-            self.users[index] = user
+    async def update(self, user: UserEntity) -> None:
+        result = await self.session.execute(
+            select(UserModel).where(UserModel.id == user.id)
+        )
+        user_model = result.scalar_one()
+        user_model.nickname = user.nickname.value
+        user_model.email = user.email.value
+        await self.session.commit()
 
     async def delete(self, id: str) -> None:
-        self.users = [user for user in self.users if user.id != id]
+        result = await self.session.execute(select(UserModel).where(UserModel.id == id))
+        user_model = result.scalar_one()
+        await self.session.delete(user_model)
+        await self.session.commit()
