@@ -54,7 +54,7 @@ class MangaRepository(IMangaRepository):
             return self._to_entity(manga_model)
         return None
 
-    async def find_all(self) -> List[MangaEntity]:
+    async def find_all_mangas(self) -> List[MangaEntity]:
         """Retorna todos os mangás."""
         result = await self.session.execute(select(MangaModel))
         models = result.scalars().all()
