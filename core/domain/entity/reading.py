@@ -18,8 +18,6 @@ class ReadingStatus(Enum):
 @dataclass
 class Reading:
     id: str
-    id_user: Optional[str] = None
-    id_manga: Optional[str] = None
     start_date: datetime
     _current_chapter: int = field(init=True, repr=False)
     _progress: float = field(
@@ -27,6 +25,8 @@ class Reading:
     )  # Usando float para progresso (0.0 a 1.0)
     _status: ReadingStatus = field(init=True, repr=False)
     _notes: str = field(init=True, repr=False)
+    id_user: Optional[str] = None
+    id_manga: Optional[str] = None
 
     @property
     def current_chapter(self) -> int:

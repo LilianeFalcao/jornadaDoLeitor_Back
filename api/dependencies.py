@@ -4,11 +4,9 @@ from jose import JWTError, jwt
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.database import get_db
-from core.domain.entities import User
+from core.domain.entity import User
 from core.factories.use_case_factory import UseCaseFactory
-from core.infra.sqlalchemy import (
-    UserRepository,
-)
+from core.infra.sqlalchemy import UserRepository
 from core.security import ALGORITHM, SECRET_KEY
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/token", scheme_name="JWT")
