@@ -25,9 +25,6 @@ class ReadingRepository(IReadingRepository):
     # --- Método Auxiliar de Conversão ---
     def _to_entity(self, model: ReadingModel) -> ReadingEntity:
         """Converte um modelo ORM em uma entidade de domínio."""
-        # Nota: Assumindo que a entidade Reading tem campos para _current_chapter,
-        # _progress, _status, etc., que podem ser inicializados diretamente.
-        # Caso sua entidade use dataclass, ela receberia os campos com underscore.
         return ReadingEntity(
             id=model.id,
             id_user=model.id_user,
@@ -35,7 +32,7 @@ class ReadingRepository(IReadingRepository):
             start_date=model.start_date,
             _current_chapter=model.current_chapter,
             _progress=model.progress,
-            _status=ReadingStatus(model.status),  # Converte str do DB para Enum
+            _status=ReadingStatus(model.status),
             _notes=model.notes,
         )
 
@@ -45,16 +42,14 @@ class ReadingRepository(IReadingRepository):
 
     async def save(self, reading: ReadingEntity) -> None:
         """Cria um novo registro de leitura."""
-        # Mapeia a entidade para o modelo ORM
         reading_model = ReadingModel(
             id=reading.id,
             id_user=reading.id_user,
             id_manga=reading.id_manga,
             start_date=reading.start_date,
-            current_chapter=reading.current_chapter,  # usa o getter da entidade
+            current_chapter=reading.current_chapter,
             progress=reading.progress,
-            status=reading.status.value,  # Pega o valor string do Enum
-            notes=reading.notes,
+            status=reading.status.value,
         )
         self.session.add(reading_model)
         await self.session.commit()
@@ -68,13 +63,11 @@ class ReadingRepository(IReadingRepository):
         reading_model = result.scalar_one_or_none()
 
         if reading_model:
-            # 2. Atualizar os atributos mutáveis do modelo com os valores da entidade
             reading_model.current_chapter = reading.current_chapter
             reading_model.progress = reading.progress
             reading_model.status = reading.status.value
             reading_model.notes = reading.notes
 
-            # 3. Commitar as mudanças
             await self.session.commit()
             return self._to_entity(reading_model)
 
@@ -82,8 +75,6 @@ class ReadingRepository(IReadingRepository):
 
     async def delete(self, id_manga: str, id_user: str) -> None:
         """Deleta o registro de leitura específico."""
-
-        # O SQLAlchemy permite a exclusão direta por filtro (mais eficiente)
         await self.session.execute(
             delete(ReadingModel).where(
                 ReadingModel.id_user == id_user, ReadingModel.id_manga == id_manga

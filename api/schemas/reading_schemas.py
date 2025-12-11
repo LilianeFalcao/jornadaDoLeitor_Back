@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from datetime import datetime
 from typing import Optional
 import enum
@@ -10,12 +10,11 @@ class ReadingStatus(enum.StrEnum):
 
 
 class ReadingCreate(BaseModel):
-    id_user: str
     id_manga: str
     start_date: datetime
     current_chapter: int
     progress: float = Field(
-        default=0.0, ge=0.0, le=1.0, description="Progresso total (0.0 a 1.0)."
+        default=0.0, ge=0.0, le=100.0, description="Progresso total (0.0 a 1.0)."
     )
     status: ReadingStatus = Field(
         default=ReadingStatus.READING, description="Status da leitura."
@@ -40,5 +39,4 @@ class ReadingResponse(BaseModel):
     status: ReadingStatus
     notes: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
