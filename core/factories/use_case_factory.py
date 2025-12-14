@@ -12,6 +12,7 @@ from core.domain.use_cases import (
     LoginUser,
     RegisterUser,
     AddReading,  # Use Case precisa de 3 repositórios
+    AddManga,
     UpdateUser,
     ListUserReading,  # Use Case precisa de 1 repositório
     FindAllMangas,
@@ -46,6 +47,8 @@ class UseCaseFactory:
     def create_find_mangas_all(self) -> FindAllMangas:
         return FindAllMangas(mangas_repository=self.manga_repository)
 
+    def create_add_mangas(self) -> AddManga:
+        return AddManga(mangas_repository=self.manga_repository)
     # ----------------------------------------------------------------------
     # Implementação Reading (CORRIGIDO)
     # ----------------------------------------------------------------------

@@ -15,7 +15,18 @@ class MockMangaRepository(IMangaRepository):
 
     async def save(self, manga: Manga) -> None:
         """Adiciona um novo mangá à lista."""
-        self.mangas.append(manga)
+        existing = await self.find_by_id(manga.id)
+        if existing:
+            # Se o mangá já existe, encontra o índice e o substitui
+            try:
+                index = self.mangas.index(existing)
+                self.mangas[index] = manga
+            except ValueError:
+                # Deveria ser inatingível se find_by_id funcionar
+                self.mangas.append(manga)
+        else:
+            # Caso contrário, adiciona o novo mangá
+            self.mangas.append(manga)
 
     async def find_by_author_name(self, author_name: str) -> List[Manga]:
         """Busca mangás pelo nome do autor."""
