@@ -4,7 +4,7 @@ import dataclasses
 @dataclasses.dataclass(frozen=True)
 class Manga:
     id: str
-    img_url: str
+    img_URL: str
     title: str
     author_name: str
     gender: str

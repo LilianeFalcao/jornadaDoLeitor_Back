@@ -21,11 +21,3 @@ class FindAllMangas:
 
         # O método findAll foi traduzido para find_all (snake_case)
         return await self.mangas_repository.find_all()
-
-
-# --- Notas ---
-# 1. Se sua aplicação não permitir a existência de 0 mangás, você pode
-#    adicionar uma verificação aqui e levantar uma exceção, similar ao
-#    ListUserReading. Porém, para um 'findAll' simples, retornar uma lista
-#    vazia é geralmente o comportamento esperado.
-# 2. Mantive o nome da classe como FindAllMangas para maior clareza.

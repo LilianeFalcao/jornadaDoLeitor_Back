@@ -6,16 +6,16 @@ from core.domain.repositories import (
     IUserRepository,
 )
 from core.domain.use_cases import (
+    AddManga,
+    AddReading,  # Use Case precisa de 3 repositórios
     DeleteUser,
+    FindAllMangas,
     FindUser,
     FindUserByEmail,
+    ListUserReading,  # Use Case precisa de 1 repositório
     LoginUser,
     RegisterUser,
-    AddReading,  # Use Case precisa de 3 repositórios
-    AddManga,
     UpdateUser,
-    ListUserReading,  # Use Case precisa de 1 repositório
-    FindAllMangas,
 )
 from core.infra.mock import (
     MockMangaRepository,
@@ -45,10 +45,11 @@ class UseCaseFactory:
     # Implementação Manga
     # ----------------------------------------------------------------------
     def create_find_mangas_all(self) -> FindAllMangas:
-        return FindAllMangas(mangas_repository=self.manga_repository)
+        return FindAllMangas(manga_repository=self.manga_repository)
 
     def create_add_mangas(self) -> AddManga:
-        return AddManga(mangas_repository=self.manga_repository)
+        return AddManga(manga_repository=self.manga_repository)
+
     # ----------------------------------------------------------------------
     # Implementação Reading (CORRIGIDO)
     # ----------------------------------------------------------------------

@@ -1,8 +1,8 @@
 import pytest
-
 from core.domain.entities import User
-from core.domain.value_objects import Email, Name, Password
 from core.infra.mocks import MockUserRepository
+
+from core.domain.value_objects import Email, Name, Password
 
 
 def create_user(

@@ -1,19 +1,22 @@
 # core/domain/use_cases/__init__.py
 
 # Use Cases de Usuário
-from .register_user import RegisterUser
 from .find_user import FindUser
-from .login_user import LoginUser
 from .find_user_by_email import FindUserByEmail
-from .delete_user import DeleteUser
+from .list_reading_by_user import ListUserReading
+from .login_user import LoginUser
+from .register_user import RegisterUser
 from .update_user import UpdateUser
 
 # Use Cases de Leitura
 from .add_reading import AddReading
-from .list_reading_by_user import ListUserReading
+from .update_readings import UpdateReading
+from .delete_user import DeleteUser
 
 # Use Cases de Mangá
 from .find_all_mangas import FindAllMangas
+from .add_manga import AddManga
+
 
 # Opcional, mas recomendado: Define o que será exportado quando
 # alguém fizer 'from core.domain.use_cases import *'
@@ -27,4 +30,5 @@ __all__ = [
     "AddReading",
     "ListUserReading",
     "FindAllMangas",
+    "AddManga",
 ]

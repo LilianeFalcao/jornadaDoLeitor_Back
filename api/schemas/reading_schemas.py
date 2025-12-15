@@ -1,7 +1,8 @@
-from pydantic import BaseModel, Field, ConfigDict
+import enum
 from datetime import datetime
 from typing import Optional
-import enum
+
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ReadingStatus(enum.StrEnum):

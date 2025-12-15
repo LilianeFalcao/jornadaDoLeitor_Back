@@ -1,10 +1,11 @@
-from core.domain.use_cases import BorrowVinylRecord, RegisterUser
-from core.factories.use_case_factory import UseCaseFactory
 from core.infra.mocks import (
     MockLoanRepository,
     MockUserRepository,
     MockVinylRecordRepository,
 )
+
+from core.domain.use_cases import BorrowVinylRecord, RegisterUser
+from core.factories.use_case_factory import UseCaseFactory
 
 
 def test_should_create_use_case_with_internal_mocks():

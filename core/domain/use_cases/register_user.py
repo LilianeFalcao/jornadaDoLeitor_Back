@@ -1,10 +1,10 @@
 import uuid
 
+from core.security import get_password_hash
+
 from ..entity import User
 from ..repositories import IUserRepository
 from ..value_objects import Email, Nickname, Password
-
-from core.security import get_password_hash
 
 
 class RegisterUser:

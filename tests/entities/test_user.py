@@ -1,4 +1,5 @@
 from core.domain.entities import User
+
 from core.domain.value_objects import Email, Name, Password
 
 

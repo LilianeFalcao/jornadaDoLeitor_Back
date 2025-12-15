@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
+
+from api.dependencies import get_current_user, get_use_case_factory
 from api.schemas.user_schemas import UserCreate, UserResponse
-from core.factories.use_case_factory import UseCaseFactory
-from api.dependencies import get_use_case_factory, get_current_user
 from core.domain.entity import User
+from core.factories.use_case_factory import UseCaseFactory
 
 user_router = APIRouter()
 

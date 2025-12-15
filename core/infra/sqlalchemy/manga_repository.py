@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import List, Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -15,7 +15,7 @@ class MangaRepository(IMangaRepository):
     async def save(self, manga: MangaEntity) -> None:
         manga_model = MangaModel(
             id=manga.id,
-            img_url=manga.img_url,
+            img_URL=manga.img_URL,
             title=manga.title,
             author_name=manga.author_name,
             gender=manga.gender,
@@ -54,7 +54,7 @@ class MangaRepository(IMangaRepository):
             return self._to_entity(manga_model)
         return None
 
-    async def find_all_mangas(self) -> List[MangaEntity]:
+    async def find_all(self) -> List[MangaEntity]:
         """Retorna todos os mangás."""
         result = await self.session.execute(select(MangaModel))
         models = result.scalars().all()

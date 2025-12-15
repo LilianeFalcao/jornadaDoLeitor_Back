@@ -1,4 +1,4 @@
 # domain_entity.py
-from .user import User
-from .reading import Reading, ReadingStatus
 from .manga import Manga
+from .reading import Reading, ReadingStatus
+from .user import User

@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional, List
-
-from ..entity.reading import Reading
+from typing import List, Optional
 
 
 class Readings:

@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from api.database import get_db
 from core.domain.entity import User
 from core.factories.use_case_factory import UseCaseFactory
-from core.infra.sqlalchemy import UserRepository
+from core.infra.sqlalchemy import UserRepository, MangaRepository, ReadingRepository
 from core.security import ALGORITHM, SECRET_KEY
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/token", scheme_name="JWT")
@@ -16,8 +16,12 @@ def get_use_case_factory(
     db: AsyncSession = Depends(get_db),
 ) -> UseCaseFactory:
     user_repository = UserRepository(db)
+    manga_repository = MangaRepository(db)
+    reading_repository = ReadingRepository(db)
     return UseCaseFactory(
         user_repository=user_repository,
+        manga_repository=manga_repository,
+        reading_repository=reading_repository,
     )
 
 

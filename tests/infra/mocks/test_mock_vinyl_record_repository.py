@@ -1,8 +1,8 @@
 import pytest
-
 from core.domain.entities import VinylRecord
-from core.domain.value_objects import Name, Photo
 from core.infra.mocks import MockVinylRecordRepository
+
+from core.domain.value_objects import Name, Photo
 
 
 def create_vinyl_record(

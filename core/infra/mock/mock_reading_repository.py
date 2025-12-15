@@ -1,5 +1,5 @@
-from typing import List, Optional
 from enum import Enum
+from typing import List, Optional
 
 from core.domain.entity import Reading
 from core.domain.repositories import IReadingRepository

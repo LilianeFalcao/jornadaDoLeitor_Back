@@ -1,4 +1,5 @@
 from core.domain.entities import VinylRecord
+
 from core.domain.value_objects import Name, Photo
 
 

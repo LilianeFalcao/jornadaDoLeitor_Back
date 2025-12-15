@@ -5,8 +5,8 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from api.database import get_db
-from core.infra.orm.base import Base
 from api.main import app
+from core.infra.orm.base import Base
 
 # Use in-memory SQLite for tests with StaticPool to share connection
 SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///:memory:"

@@ -5,10 +5,11 @@ from typing import Optional
 # Importações assumidas com base na sua estrutura de projeto
 from core.domain.entity import Reading, ReadingStatus
 from core.domain.repositories import (
+    IMangaRepository,
     IReadingRepository,
     IUserRepository,
-    IMangaRepository,
 )
+
 # Nota: Assumindo que ReadingStatus é importado do domínio (core.domain.entities ou core.domain.enums)
 
 

@@ -17,4 +17,3 @@ async def test_register_user(client: AsyncClient):
     assert data["nickname"] == "New User"
     assert data["email"] == "new@example.com"
     assert "id" in data
-

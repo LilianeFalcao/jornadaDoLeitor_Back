@@ -1,6 +1,7 @@
 from typing import List, TypedDict
-from ..repositories import IReadingsRepository
+
 from ..entity.reading import Readings, ReadingStatus
+from ..repositories import IReadingsRepository
 
 
 class ListReadingByStatusParams(TypedDict):

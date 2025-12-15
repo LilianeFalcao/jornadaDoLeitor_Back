@@ -1,17 +1,16 @@
 from typing import List, Optional
-from enum import Enum
 
-from sqlalchemy import delete, update
+from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select as sql_select
 
 # Assumindo estas importações em sua estrutura:
 from core.domain.entity import Reading as ReadingEntity
-from core.domain.repositories import IReadingRepository
-from core.infra.orm.reading import Reading as ReadingModel
 
 # Importando o Enum definido no domínio para uso na interface
 from core.domain.entity.reading import ReadingStatus
+from core.domain.repositories import IReadingRepository
+from core.infra.orm.reading import Reading as ReadingModel
 
 
 class ReadingRepository(IReadingRepository):

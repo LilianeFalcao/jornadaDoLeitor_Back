@@ -3,12 +3,12 @@ import os
 import sys
 from logging.config import fileConfig
 
+from dotenv import load_dotenv
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
-from dotenv import load_dotenv
 
 # ----------------------------------------------------------------------
 # 1. CARREGAMENTO DE VARIÁVEIS DE AMBIENTE
