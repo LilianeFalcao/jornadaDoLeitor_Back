@@ -12,6 +12,17 @@ class MangaRepository(IMangaRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
 
+    def _to_entity(self, model: MangaModel) -> MangaEntity:
+        """Converte um objeto MangaModel do ORM para uma entidade de domínio MangaEntity."""
+        return MangaEntity(
+            id=model.id,
+            img_URL=model.img_URL,
+            title=model.title,
+            author_name=model.author_name,
+            gender=model.gender,
+            total_chapters=model.total_chapters,
+        )
+
     async def save(self, manga: MangaEntity) -> None:
         manga_model = MangaModel(
             id=manga.id,

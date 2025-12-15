@@ -13,6 +13,7 @@ class Reading(Base):
     start_date = Column(DateTime)
     current_chapter = Column(Integer)
     progress = Column(Float)
+    status = Column(String)
     notes = Column(String)
 
     user = relationship("User")
