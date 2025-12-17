@@ -52,7 +52,15 @@ def upgrade() -> None:
         sa.Column("start_date", sa.DateTime(), nullable=True),
         sa.Column("current_chapter", sa.Numeric(), nullable=True),
         sa.Column("progress", sa.Numeric(), nullable=True),
-        sa.Column("status", sa.String(), nullable=True),
+        sa.Column(
+            "status",
+            sa.Enum(
+                "reading",
+                "completed",
+                name="reading_status"
+            ),
+            nullable=False,
+        ),
         sa.Column("notes", sa.String(), nullable=True),
         sa.ForeignKeyConstraint(
             ["id_manga"],

@@ -1,20 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
+from core.domain.enum.reading_status import ReadingStatus
 
 
 class Readings:
     pass
-
-
-class ReadingStatus:
-    """
-    Enum que representa o status de leitura de um mangá.
-    Corresponde a 'export enum Reading_Status'.
-    """
-
-    READING = "reading"
-    COMPLETED = "completed"
-    ALL = "all"
 
 
 class IReadingRepository(ABC):

@@ -72,23 +72,22 @@ async def update_readings(
 ):
     try:
         update_reading_use_case = factory.create_update_reading()
-        # 2. Executa o Use Case
-        # O Use Case precisa: ID do usuário (logado), ID do mangá (URL), novo capítulo (corpo)
         updated_reading = await update_reading_use_case.execute(
             id_user=current_user.id,
             id_manga=id_manga,
-            new_current_chapter=reading_data.new_current_chapter,
-            # NOTA: O Use Case UpdateReading deve ser modificado para buscar total_chapters internamente.
+            current_chapter=reading_data.current_chapter,
+            notes=reading_data.notes,
         )
         return updated_reading
     except ValueError as e:
-        # Trata "Registro de leitura não encontrado" ou validações de capítulo
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
-    except Exception:
-        # Erro genérico do servidor
+    except Exception as e:
+        import traceback
+
+        traceback.print_exc()  # Isso vai imprimir o erro completo (o rastro) no seu terminal
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Internal error while updating reading.",
+            detail=str(e),
         )
 
 

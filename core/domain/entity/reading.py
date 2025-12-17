@@ -1,18 +1,8 @@
 from dataclasses import dataclass, field
 from datetime import datetime
-from enum import Enum
 from typing import Optional
 
-
-class ReadingStatus(Enum):
-    """
-    Enum que representa o status de leitura de um mangá.
-    Corresponde a 'export enum Reading_Status'.
-    """
-
-    READING = "reading"
-    COMPLETED = "completed"
-    ALL = "all"
+from core.domain.enum.reading_status import ReadingStatus
 
 
 @dataclass
