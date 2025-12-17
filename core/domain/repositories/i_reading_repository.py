@@ -49,3 +49,10 @@ class IReadingRepository(ABC):
     ) -> Optional[Readings]:
         """Busca um registro de leitura específico por ID do usuário e ID do mangá."""
         pass
+
+    @abstractmethod
+    async def find_by_id_and_user(
+        self, id_reading: str, id_user: str
+    ) -> Optional[Readings]:
+        """Busca um registro de leitura específico pelo ID do Registro E ID do Usuário (para posse)."""
+        pass

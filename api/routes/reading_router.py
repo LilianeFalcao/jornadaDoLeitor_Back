@@ -58,6 +58,11 @@ async def get_readings(
 # --- Fim da Correção do GET ---
 
 
+# ------------------
+# Atualisar Leitura
+# -----------------
+
+
 @readings_router.put("/readings/{id_manga}", response_model=ReadingResponse)
 async def update_readings(
     id_manga: str,
@@ -85,3 +90,8 @@ async def update_readings(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal error while updating reading.",
         )
+
+
+# ------------------
+# Deletar Leitura
+# -----------------

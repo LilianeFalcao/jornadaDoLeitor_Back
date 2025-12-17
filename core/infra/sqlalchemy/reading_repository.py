@@ -102,15 +102,52 @@ class ReadingRepository(IReadingRepository):
     async def find_by_user_and_manga(
         self, id_user: str, id_manga: str
     ) -> Optional[ReadingEntity]:
-        """Busca uma leitura específica por usuário e mangá."""
+        """
+        Busca uma leitura específica por ID de usuário e ID de mangá.
 
+        Args:
+            id_user: O ID do usuário.
+            id_manga: O ID do mangá.
+
+        Returns:
+            ReadingEntity: O registro de leitura encontrado, ou None se não existir.
+        """
         result = await self.session.execute(
             sql_select(ReadingModel).where(
-                ReadingModel.id_user == id_user, ReadingModel.id_manga == id_manga
+                # Filtro 1: O ID do Usuário deve corresponder
+                ReadingModel.id_user == id_user,
+                # Filtro 2: O ID do Mangá deve corresponder
+                ReadingModel.id_manga == id_manga,
             )
         )
+
+        # 2. Executa e obtém o resultado
+        # 'scalar_one_or_none()' garante que no máximo um objeto seja retornado.
+        reading_model = result.scalar_one_or_none()
+
+        # 3. Converte e retorna
+        if reading_model:
+            return self._to_entity(reading_model)
+
+        return None  # Retorna None se nenhum registro for encontrado
+
+    async def find_by_id_and_user(
+        self, id_reading: str, id_user: str
+    ) -> Optional[ReadingEntity]:
+        """
+        Busca um registro de leitura pelo ID do registro e ID do usuário
+        (garante posse do recurso).
+        """
+        result = await self.session.execute(
+            sql_select(ReadingModel).where(
+                ReadingModel.id == id_reading,
+                ReadingModel.id_user == id_user,
+            )
+        )
+
         reading_model = result.scalar_one_or_none()
 
         if reading_model:
             return self._to_entity(reading_model)
+
         return None

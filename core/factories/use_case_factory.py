@@ -7,15 +7,18 @@ from core.domain.repositories import (
 )
 from core.domain.use_cases import (
     AddManga,
-    AddReading,  # Use Case precisa de 3 repositórios
+    AddReading,
     DeleteUser,
     FindAllMangas,
     FindUser,
     FindUserByEmail,
-    ListUserReading,  # Use Case precisa de 1 repositório
+    ListUserReading,
+    FindReadingByIdAndUser,
     LoginUser,
     RegisterUser,
+    UpdateReading,
     UpdateUser,
+    DeleteReading,
 )
 from core.infra.mock import (
     MockMangaRepository,
@@ -70,6 +73,29 @@ class UseCaseFactory:
         """
         # Nota: O nome do parâmetro deve coincidir com o __init__ do ListUserReading
         return ListUserReading(reading_repository=self.reading_repository)
+
+    def create_find_reading_by_id_and_user(self) -> FindReadingByIdAndUser:
+        """
+        Cria o Use Case para buscar uma leitura específica pelo ID do Registro
+        e do Usuário (para verificar a posse).
+        """
+        return FindReadingByIdAndUser(reading_repository=self.reading_repository)  #
+
+    def create_update_reading(self) -> UpdateReading:
+        """
+        Cria o Use Case de atualização. Assumindo que ele precisa de
+        repositórios para buscar o total_chapters e a leitura existente.
+        """
+        return UpdateReading(
+            reading_repository=self.reading_repository,
+            manga_repository=self.manga_repository,
+        )
+
+    def create_delete_reading(self) -> UpdateReading:
+        """
+        Cria o Use Case de deleção, injetando o ReadingRepository.
+        """
+        return DeleteReading(reading_repository=self.reading_repository)
 
     # ----------------------------------------------------------------------
     # Implementação User

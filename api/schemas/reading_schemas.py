@@ -14,12 +14,6 @@ class ReadingCreate(BaseModel):
     id_manga: str
     start_date: datetime
     current_chapter: int
-    progress: float = Field(
-        default=0.0, ge=0.0, le=100.0, description="Progresso total (0.0 a 1.0)."
-    )
-    status: ReadingStatus = Field(
-        default=ReadingStatus.READING, description="Status da leitura."
-    )
     notes: Optional[str] = Field(default="", description="Anotações sobre a leitura.")
 
 
