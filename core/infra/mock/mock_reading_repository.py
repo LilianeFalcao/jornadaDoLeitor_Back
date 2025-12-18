@@ -71,6 +71,15 @@ class MockReadingRepository(IReadingRepository):
             None,
         )
 
+    async def find_by_id_and_user(
+        self, id_reading: str, id_user: str
+    ) -> Optional[Reading]:
+        """Busca uma leitura específica pelo seu próprio ID e o ID do usuário."""
+        return next(
+            (r for r in self.readings if r.id == id_reading and r.id_user == id_user),
+            None,
+        )
+
     # ----------------------------------------------------------------------
     # Método Auxiliar
     # ----------------------------------------------------------------------
