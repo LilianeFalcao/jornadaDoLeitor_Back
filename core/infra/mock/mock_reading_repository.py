@@ -1,13 +1,8 @@
-from enum import Enum
 from typing import List, Optional
 
 from core.domain.entity import Reading
 from core.domain.repositories import IReadingRepository
-
-
-class ReadingStatus(Enum):
-    READING = "reading"
-    COMPLETED = "completed"
+from core.domain.enum.reading_status import ReadingStatus
 
 
 class MockReadingRepository(IReadingRepository):
