@@ -55,8 +55,8 @@ def upgrade() -> None:
         sa.Column(
             "status",
             sa.Enum(
-                "reading",
-                "completed",
+                "READING",
+                "COMPLETED",
                 name="reading_status"
             ),
             nullable=False,

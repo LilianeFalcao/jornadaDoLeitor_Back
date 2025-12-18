@@ -49,6 +49,7 @@ class ReadingRepository(IReadingRepository):
             current_chapter=reading.current_chapter,
             progress=reading.progress,
             status=reading.status.value,
+            notes=reading.notes,
         )
         self.session.add(reading_model)
         await self.session.commit()
@@ -68,16 +69,17 @@ class ReadingRepository(IReadingRepository):
             reading_model.notes = reading.notes
 
             await self.session.commit()
-            return self._to_entity(reading_model)
+            await self.session.refresh(reading_model)
 
+            return self._to_entity(reading_model)
         return reading
 
-    async def delete(self, id_manga: str, id_user: str) -> None:
+    async def delete(self, id_reading: str) -> None:
         """Deleta o registro de leitura específico."""
+        from sqlalchemy import delete as sql_delete  # Garanta que o import está correto
+
         await self.session.execute(
-            delete(ReadingModel).where(
-                ReadingModel.id_user == id_user, ReadingModel.id_manga == id_manga
-            )
+            sql_delete(ReadingModel).where(ReadingModel.id == id_reading)
         )
         await self.session.commit()
 

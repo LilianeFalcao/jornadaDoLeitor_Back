@@ -55,9 +55,6 @@ async def get_readings(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
 
 
-# --- Fim da Correção do GET ---
-
-
 # ------------------
 # Atualisar Leitura
 # -----------------
@@ -84,7 +81,7 @@ async def update_readings(
     except Exception as e:
         import traceback
 
-        traceback.print_exc()  # Isso vai imprimir o erro completo (o rastro) no seu terminal
+        traceback.print_exc()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e),
@@ -94,3 +91,33 @@ async def update_readings(
 # ------------------
 # Deletar Leitura
 # -----------------
+@readings_router.delete(
+    "/readings/{id_reading}", status_code=status.HTTP_204_NO_CONTENT
+)
+async def delete_reading(
+    id_reading: str,  # Mudamos de id_manga para id_reading
+    factory: UseCaseFactory = Depends(get_use_case_factory),
+    current_user: User = Depends(get_current_user),
+):
+    try:
+        reading = await factory.reading_repository.find_by_id_and_user(
+            id_reading=id_reading, id_user=current_user.id
+        )
+        if reading is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Read log not found!"
+            )
+
+        if reading.id_user != current_user.id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="You are not allowed to delete this reading!",
+            )
+
+        delete_use_case = factory.create_delete_reading()
+        await delete_use_case.execute(id_reading=id_reading)
+
+        return
+
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
