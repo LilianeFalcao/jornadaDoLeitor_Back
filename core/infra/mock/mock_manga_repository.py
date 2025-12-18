@@ -51,7 +51,11 @@ class MockMangaRepository(IMangaRepository):
         # Se title for um Value Object (como sugerido anteriormente), use .value
         # Caso contrário, use apenas .title
         return next(
-            (manga for manga in self.mangas if manga.title.value == title), None
+            (
+                manga
+                for manga in self.mangas
+                if str(manga.title).lower() == title.lower()
+            )
         )
 
     async def find_all(self) -> List[Manga]:
